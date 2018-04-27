@@ -65,16 +65,12 @@ radio_type_frame = tk.Frame(root)
 
 radio_type_label = tk.Label(radio_type_frame, text="Type", font=(None, 18)).grid(column=0, row=0, padx=5)
 
-radio_type_values1 = ('AM', 'FM', 'USB')
-radio_type_values2 = ('LSB', 'CW', 'OTH')
+radio_type_values = (('AM', 'FM', 'USB'), ('LSB', 'CW', 'OTH'))
 
-for i, radio_type_value in enumerate(radio_type_values1):
-    radio_type_choice = tk.Radiobutton(radio_type_frame, text=radio_type_value, variable=radio_type, value=radio_type_value,
-                                       command=select_radio_type, indicatoron=0, font=(None, 18), width=10).grid(column=i * 2, row=1, columnspan=2, sticky='W')
-
-for i, radio_type_value in enumerate(radio_type_values2):
-    radio_type_choice = tk.Radiobutton(radio_type_frame, text=radio_type_value, variable=radio_type, value=radio_type_value,
-                                       command=select_radio_type, indicatoron=0, font=(None, 18), width=10).grid(column=i * 2, row=2, columnspan=2, sticky='W')
+for i, radio_type_row in enumerate(radio_type_values):
+    for j, radio_type_value in enumerate(radio_type_row):
+        radio_type_choice = tk.Radiobutton(radio_type_frame, text=radio_type_value, variable=radio_type, value=radio_type_value,
+                                           command=select_radio_type, indicatoron=0, font=(None, 18), width=10).grid(column=j*2, row=2, columnspan=i, sticky='W')
 
 radio_type_frame.grid(column=0, row=4, rowspan=3, columnspan=6)
 
