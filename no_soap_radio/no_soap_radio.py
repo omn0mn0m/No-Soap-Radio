@@ -2,46 +2,82 @@ import Tkinter as tk
 
 root = tk.Tk()
 root.title("No Soap Radio")
-root.geometry("265x175")
+root.geometry("460x320")
 
 mode = tk.StringVar()
+enabled = tk.BooleanVar()
 radio_type = tk.StringVar()
-frequency = tk.StringVar()
+frequency = tk.IntVar()
 
-def print_mode(event=None):
+# =============== Variable Setup ================
+mode.set('Rx')
+enabled.set(False)
+radio_type.set('FM')
+frequency.set(0)
+
+def select_mode(event=None):
+    enabled.set(False)
+    
     print mode.get()
 
-def print_radio_type(event=None):
+def select_radio_type(event=None):
+    enabled.set(False)
+    
     print radio_type.get()
 
 def start():
     if mode.get() == "Tx":
-        print "Starting transmit at " + frequency.get()
+        print "Starting transmit at " + str(frequency.get())
     else:
-        print "Starting receive at " + frequency.get()
-
+        print "Starting receive at " + str(frequency.get())
 
 def stop():
     if mode.get() == "Tx":
-        print "Stopping transmit at " + frequency.get()
+        print "Stopping transmit at " + str(frequency.get())
     else:
-        print "Stopping receive at " + frequency.get()
+        print "Stopping receive at " + str(frequency.get())
 
+# ================ Frequency Specification ==================
+frequency_frame = tk.Frame(root)
 
-frequency_label = tk.Label(root, text="Frequency").grid(column=1, row=0, columnspan=2)
-frequency_entry = tk.Entry(root, textvariable=frequency).grid(column=1, row=1, columnspan=2)
+frequency_label = tk.Label(frequency_frame, text="Frequency", font=(None, 18)).pack()
+frequency_entry = tk.Entry(frequency_frame, textvariable=frequency, width=11, font=(None, 18), justify=tk.CENTER).pack()
+start_button = tk.Radiobutton(frequency_frame, text="Start", variable=enabled, value=True,
+                              command=start, indicatoron=0, font=(None, 18), width=5).pack(side=tk.LEFT)
+stop_button = tk.Radiobutton(frequency_frame, text="Stop", variable=enabled, value=False,
+                             command=stop, indicatoron=0, font=(None, 18), width=5).pack(side=tk.RIGHT)
 
-mode_label = tk.Label(root, text="Mode").grid(column=0, row=0, padx=5)
-mode_choice0 = tk.Radiobutton(root, text="Transmit", variable=mode, value="Tx", command=print_mode).grid(column=0, row=1, padx=5)
-mode_choice1 = tk.Radiobutton(root, text="Receive", variable=mode, value="Rx", command=print_mode).grid(column=0, row=2, padx=5)
+frequency_frame.grid(column=3, row=0, columnspan=2, rowspan=3)
 
-radio_type_label = tk.Label(root, text="Type").grid(column=0, row=3, padx=5)
-radio_type_choice0 = tk.Radiobutton(root, text="AM", variable=radio_type, value="AM", command=print_radio_type).grid(column=0, row=4, padx=5)
-radio_type_choice1 = tk.Radiobutton(root, text="FM", variable=radio_type, value="FM", command=print_radio_type).grid(column=0, row=5, padx=5)
-radio_type_choice2 = tk.Radiobutton(root, text="USB/LSB", variable=radio_type, value="USB/LSB", command=print_radio_type).grid(column=0, row=6, padx=5)
-radio_type_choice3 = tk.Radiobutton(root, text="CW", variable=radio_type, value="CW", command=print_radio_type).grid(column=0, row=7, padx=5)
+# ================ Mode Selection ===============
+mode_frame = tk.Frame(root)
 
-start_button = tk.Button(root, text="Start", command=start).grid(column=1, row=2)
-stop_button = tk.Button(root, text="Stop", command=stop).grid(column=2, row=2)
+mode_label = tk.Label(mode_frame, text="Mode", font=(None, 18)).grid(column=0, row=0, sticky='W')
+mode_choice0 = tk.Radiobutton(mode_frame, text="Transmit", variable=mode, value="Tx",
+                              command=select_mode, indicatoron=0, font=(None, 18), width=10).grid(column=0, row=1, columnspan=2, sticky='W')
+mode_choice1 = tk.Radiobutton(mode_frame, text="Receive", variable=mode, value="Rx",
+                              command=select_mode, indicatoron=0, font=(None, 18), width=10).grid(column=0, row=2, columnspan=2, sticky='W')
+
+mode_frame.grid(column=0, row=0, rowspan=3, columnspan=2)
+
+# ================ Signal Type ==================
+radio_type_frame = tk.Frame(root)
+
+radio_type_label = tk.Label(radio_type_frame, text="Type", font=(None, 18)).grid(column=0, row=0, padx=5)
+
+radio_type_values1 = ('AM', 'FM', 'USB')
+radio_type_values2 = ('LSB', 'CW', 'OTH')
+
+for i, radio_type_value in enumerate(radio_type_values1):
+    radio_type_choice = tk.Radiobutton(radio_type_frame, text=radio_type_value, variable=radio_type, value=radio_type_value,
+                                       command=select_radio_type, indicatoron=0, font=(None, 18), width=10).grid(column=i * 2, row=1, columnspan=2, sticky='W')
+
+for i, radio_type_value in enumerate(radio_type_values2):
+    radio_type_choice = tk.Radiobutton(radio_type_frame, text=radio_type_value, variable=radio_type, value=radio_type_value,
+                                       command=select_radio_type, indicatoron=0, font=(None, 18), width=10).grid(column=i * 2, row=2, columnspan=2, sticky='W')
+
+radio_type_frame.grid(column=0, row=4, rowspan=3, columnspan=6)
+
+# ================ Main Loop ==================
 
 root.mainloop()
