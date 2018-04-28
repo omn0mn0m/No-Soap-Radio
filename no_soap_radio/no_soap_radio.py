@@ -81,15 +81,14 @@ mode_frame.grid(column=0, row=0, columnspan=5, pady=10)
 frequency_frame = tk.Frame(root)
 
 frequency_label = tk.Label(frequency_frame, text="Frequency", font=(None, 18)).grid(column=0, row=0, columnspan=2, sticky='W')
-frequency_entry = tk.Entry(frequency_frame, textvariable=frequency, width=5, font=(None, 18), justify=tk.CENTER).grid(column=0, row=1, sticky='W')
-frequency_unit = tk.OptionMenu(frequency_frame, variable=unit, width=5, font=(None, 18), 
+frequency_entry = tk.Entry(frequency_frame, textvariable=frequency, width=10, font=(None, 18), justify=tk.CENTER).grid(column=0, row=1, sticky='W')
 start_button = tk.Radiobutton(frequency_frame, text="Start", variable=enabled, value=True,
                               command=start, indicatoron=0, font=(None, 18), width=10).grid(column=2, row=1, columnspan=2, sticky='W')
 stop_button = tk.Radiobutton(frequency_frame, text="Stop", variable=enabled, value=False,
                              command=stop, indicatoron=0, font=(None, 18), width=10).grid(column=4, row=1, columnspan=2, sticky='W')
 frequency_scale = tk.Scale(frequency_frame, variable=frequency, from_=0, to=1000000000, orient=tk.HORIZONTAL, length=450).grid(column=0, row=2, columnspan=6, sticky='W')
 
-frequency_frame.grid(column=0, row=2, rowspan=3, columnspan=6, pady=10)
+frequency_frame.grid(column=0, row=2, rowspan=2, columnspan=6, pady=10)
 
 # ================ Signal Type ==================
 radio_type_frame = tk.Frame(root)
