@@ -3,7 +3,7 @@ import subprocess as sp
 
 root = tk.Tk()
 root.title("No Soap Radio")
-root.geometry("460x320")
+root.geometry("1280x720") # Was 460x320
 
 mode = tk.StringVar()
 enabled = tk.BooleanVar()
