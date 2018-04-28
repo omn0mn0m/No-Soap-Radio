@@ -27,7 +27,10 @@ def start():
         
         print "Starting transmit at " + str(frequency.get())
     else:
-        p = sp.Popen(["ping", "www.bing.com"])
+        if radio_type.get() == 'FM':
+            p = sp.Popen(["rtl_fm", "-f", frequency.get(), "-M", "wbfm", "-s", "200000", "-r", "48000", "-", "|", "aplay", "-r", "48000", "-f", "S16_LE"])
+        else:
+            p = sp.Popen(["ping", "www.bing.com"])
         
         print "Starting receive at " + str(frequency.get())
 
