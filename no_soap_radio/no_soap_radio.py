@@ -21,6 +21,7 @@ metric_conversions = {'Hz':1e0, 'kHz': 1e3, 'MHz':1e6, 'GHz':1e9}
 
 def start():
     global p
+    global p2
     
     if mode.get() == "Tx":
         p = sp.Popen(["ping", "www.google.com"])
@@ -28,7 +29,8 @@ def start():
         print "Starting transmit at " + str(frequency.get())
     else:
         if radio_type.get() == 'FM':
-            p = sp.Popen(["rtl_fm", "-f", str(frequency.get()), "-M", "wbfm", "-s", "200000", "-r", "48000", "-", "|", "aplay", "-r", "48000", "-f", "S16_LE"])
+            p = sp.Popen(["rtl_fm", "-f", str(frequency.get()), "-M", "wbfm", "-s", "200000", "-r", "48000", "-"], stdout=sp.PIPE)
+            p2 = sp.Popen(["aplay", "-r", "48000", "-f", "S16_LE"], stdin=p.stdout)
         else:
             p = sp.Popen(["ping", "www.bing.com"])
         
@@ -36,6 +38,7 @@ def start():
 
 def stop():
     global p
+    global p2
     
     if mode.get() == "Tx":
         try:
@@ -47,6 +50,7 @@ def stop():
     else:
         try:
             p.terminate()
+            p2.terminate()
         except:
             print "No process to close..."
         
