@@ -115,7 +115,7 @@ unit_choice2 = tk.Radiobutton(frequency_frame, text="MHz", variable=unit, value=
 unit_choice3 = tk.Radiobutton(frequency_frame, text="GHz", variable=unit, value="GHz",
                               command=select_unit, indicatoron=0, font=(None, 30), width=8).grid(column=5, row=1, sticky='W')
 
-frequency_scale = tk.Scale(frequency_frame, variable=frequency, from_=0, to=999, orient=tk.HORIZONTAL, width=40, length=1240, sliderlength=60, resolution=0.1, font=(None, 30)).grid(column=0, row=2, columnspan=6, sticky='W')
+frequency_scale = tk.Scale(frequency_frame, variable=frequency, from_=0, to=999, orient=tk.HORIZONTAL, width=40, length=1095, sliderlength=60, resolution=0.1, font=(None, 30)).grid(column=0, row=2, columnspan=6, sticky='W')
 
 frequency_frame.grid(column=0, row=3, rowspan=2, columnspan=6, pady=10)
 
