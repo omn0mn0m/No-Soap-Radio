@@ -34,8 +34,18 @@ def start():
         if radio_type.get() == 'FM':
             p = sp.Popen(["rtl_fm", "-f", str(frequency.get() * metric_conversions[unit.get()]), "-M", "wbfm", "-s", "200000", "-r", "48000", "-"], stdout=sp.PIPE)
             p2 = sp.Popen(["aplay", "-r", "48000", "-f", "S16_LE"], stdin=p.stdout)
+        elif radio_type.get() == 'AM':
+             p = sp.Popen(["rtl_fm", "-f", str(frequency.get() * metric_conversions[unit.get()]), "-M", "am", "-s", "200000", "-r", "48000", "-"], stdout=sp.PIPE)
+            p2 = sp.Popen(["aplay", "-r", "48000", "-f", "S16_LE"], stdin=p.stdout)
+        elif radio_type.get() == 'USB':
+             p = sp.Popen(["rtl_fm", "-f", str(frequency.get() * metric_conversions[unit.get()]), "-M", "usb", "-s", "200000", "-r", "48000", "-"], stdout=sp.PIPE)
+            p2 = sp.Popen(["aplay", "-r", "48000", "-f", "S16_LE"], stdin=p.stdout)
+        elif radio_type.get() == 'LSB':
+             p = sp.Popen(["rtl_fm", "-f", str(frequency.get() * metric_conversions[unit.get()]), "-M", "lsb", "-s", "200000", "-r", "48000", "-"], stdout=sp.PIPE)
+            p2 = sp.Popen(["aplay", "-r", "48000", "-f", "S16_LE"], stdin=p.stdout)
         else:
-            p = sp.Popen(["ping", "www.bing.com"])
+            p = sp.Popen(["ping", "www.google.com"])
+            p2 = sp.Popen(["ping", "www.bing.com"])
         
         print "Starting receive at " + str(frequency.get() * metric_conversions[unit.get()])
 
